@@ -214,14 +214,6 @@ precision    recall  f1-score   support
 
 ## Penutup
 
-Hasil evaluasi menunjukkan bahwa model KNN dengan nilai K = 7 memiliki akurasi sebesar 88.59%, yang mengindikasikan performa yang baik dalam memprediksi penyakit jantung. Dengan model KNN ini, kita diharapkan dapat memprediksi penyakit j
-
-antung lebih cepat dan efisien, membantu proses deteksi dini bagi pasien yang berisiko tinggi.
-
-**Potensi Peningkatan**:
-- Penggunaan algoritma machine learning lain seperti Random Forest atau SVM untuk perbandingan performa.
-- Penambahan fitur klinis lain untuk memperkaya model prediksi.
-
 ### Implikasi dan Dampak Hasil Riset
 
 Hasil evaluasi menunjukkan bahwa model KNN dengan nilai K = 19  memiliki akurasi sebesar 88,59%, yang mengindikasikan performa yang baik dalam memprediksi penyakit jantung. Implikasi dari hasil ini terhadap **problem statement**, **goals**, dan **solution statement** adalah sebagai berikut:
@@ -233,3 +225,7 @@ Hasil evaluasi menunjukkan bahwa model KNN dengan nilai K = 19  memiliki akurasi
 - **Solution Statement**: Proses tuning hyperparameter yang dilakukan berhasil meningkatkan performa model KNN. Penggunaan metrik evaluasi yang komprehensif memastikan bahwa model tidak hanya akurat tetapi juga handal dalam berbagai aspek klasifikasi, mendukung solusi yang diusulkan untuk deteksi dini penyakit jantung.
 
 Secara keseluruhan, hasil riset ini menunjukkan bahwa penggunaan algoritma KNN dengan hyperparameter yang dioptimalkan adalah pendekatan yang efektif untuk prediksi penyakit jantung, yang dapat berdampak positif dalam upaya pencegahan dan pengelolaan kesehatan masyarakat.
+
+**Potensi Peningkatan**:
+- Penggunaan algoritma machine learning lain seperti Random Forest atau SVM untuk perbandingan performa.
+- Penambahan fitur klinis lain untuk memperkaya model prediksi.
