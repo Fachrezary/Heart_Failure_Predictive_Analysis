@@ -34,6 +34,7 @@ Tujuan dari proyek ini adalah untuk membuat model prediksi yang akurat dalam men
 Dataset yang digunakan adalah *Heart Disease Dataset*, yang tersedia di Kaggle. Link dataset: (https://www.kaggle.com/datasets/johnsmith/heart-disease-dataset)
 
 ### Informasi Data
+![download](https://github.com/user-attachments/assets/4dd29e71-8fef-459e-8402-c8ac1b2088c0)
 - Jumlah baris data: 918
 - Jumlah fitur: 12
 - Variabel target: `HeartDisease` (1 untuk penyakit jantung, 0 untuk tidak ada penyakit jantung)
@@ -51,6 +52,9 @@ Dataset yang digunakan adalah *Heart Disease Dataset*, yang tersedia di Kaggle. 
 10. **Oldpeak** - Oldpeak = ST (Nilai numerik diukur dalam depresi)
 11. **ST_Slope** - Kemiringan puncak latihan segmen ST
 12. **HeartDisease** - Status penyakit
+![download (1)](https://github.com/user-attachments/assets/d8dcbfd9-eb64-45ff-9459-a976130bf776)
+![download (2)](https://github.com/user-attachments/assets/fafa1793-8008-4423-a927-764bd94d5305)
+
 
 ## Data Preparation
 
@@ -148,17 +152,20 @@ Metrik evaluasi yang digunakan dalam proyek ini meliputi:
 - **ROC Curve dan AUC Score**: Untuk menilai performa model klasifikasi pada berbagai threshold.
 
 ### Hasil Proyek Berdasarkan Metrik Evaluasi
+![download (3)](https://github.com/user-attachments/assets/1e033346-ac13-435d-bdce-f147a4345fc9)
+![download (4)](https://github.com/user-attachments/assets/ee0a01df-b563-4981-a107-a73aac410096)
 
 Hasil evaluasi menunjukkan bahwa model KNN memiliki akurasi yang baik dalam memprediksi penyakit jantung. Hasil dari confusion matrix dan classification report memberikan gambaran jelas mengenai jumlah prediksi yang benar dan salah, serta nilai precision dan recall untuk masing-masing kelas.
 
 ### Penjelasan Metrik Evaluasi
+![download (5)](https://github.com/user-attachments/assets/d59300ab-75e8-44f2-bb42-deb012824536)
 
 - **Confusion Matrix**: Menghitung jumlah True Positive (TP), True Negative (TN), False Positive (FP), dan False Negative (FN), memberikan wawasan tentang klasifikasi model.
   
-- **Accuracy Score**: Dihitung dengan rumus:
-  \[
-  \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
-  \]
+- **Accuracy Score**:
+- Dihitung dengan rumus:
+![Screenshot 2024-10-14 113905](https://github.com/user-attachments/assets/1b063f7e-89ab-43cf-bd3a-bfb3226055e5)
+
   Di mana:
   - **TP** = True Positive
   - **TN** = True Negative
