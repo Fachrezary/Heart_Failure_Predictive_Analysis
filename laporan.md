@@ -31,7 +31,7 @@ Tujuan dari proyek ini adalah untuk membuat model prediksi yang akurat dalam men
 ## Data Understanding
 
 ### Sumber Data
-Dataset yang digunakan adalah *Heart Disease Dataset*, yang tersedia di Kaggle. Link dataset: (https://www.kaggle.com/datasets/johnsmith/heart-disease-dataset)
+Dataset yang digunakan adalah *Heart Disease Dataset*, yang tersedia di UCI. Link dataset: (http://archive.ics.uci.edu/dataset/45/heart+disease)
 
 ### Informasi Data
 ![download](https://github.com/user-attachments/assets/4dd29e71-8fef-459e-8402-c8ac1b2088c0)
