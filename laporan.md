@@ -34,7 +34,9 @@ Tujuan dari proyek ini adalah untuk membuat model prediksi yang akurat dalam men
 Dataset yang digunakan adalah *Heart Disease Dataset*, yang tersedia di UCI. Link dataset: [Heart Disease Dataset](http://archive.ics.uci.edu/dataset/45/heart+disease)
 
 ### Informasi Data
-![download](https://github.com/user-attachments/assets/4dd29e71-8fef-459e-8402-c8ac1b2088c0)
+
+![Data Heart Disease](https://github.com/user-attachments/assets/4dd29e71-8fef-459e-8402-c8ac1b2088c0)
+
 - **Jumlah baris data**: 918
 - **Jumlah fitur**: 12
 - **Variabel target**: HeartDisease (1 untuk penyakit jantung, 0 untuk tidak ada penyakit jantung)
@@ -51,17 +53,19 @@ Untuk memastikan kualitas data sebelum proses modeling, dilakukan analisis terha
 
 2. **Nilai Duplikat**:
 
-python
-   duplicate_rows = heart_disease.duplicated().sum()
-   print(f"Jumlah baris duplikat: {duplicate_rows}")
+```python
+duplicate_rows = heart_disease.duplicated().sum()
+print(f"Jumlah baris duplikat: {duplicate_rows}")
+```
 
    - **Hasil**: Tidak terdapat baris duplikat dalam dataset.
 
-4. **Nilai Hilang**:
-   
-python
-   missing_values = heart_disease.isnull().sum()
-   print(missing_values)
+3. **Nilai Hilang**:
+
+```python
+missing_values = heart_disease.isnull().sum()
+print(missing_values)
+```
 
    - **Hasil**: Tidak terdapat nilai yang hilang pada dataset.
 
@@ -78,8 +82,10 @@ python
 10. **Oldpeak** - Oldpeak = ST (Nilai numerik diukur dalam depresi)
 11. **ST_Slope** - Kemiringan puncak latihan segmen ST
 12. **HeartDisease** - Status penyakit
-![download (1)](https://github.com/user-attachments/assets/d8dcbfd9-eb64-45ff-9459-a976130bf776)
-![download (2)](https://github.com/user-attachments/assets/fafa1793-8008-4423-a927-764bd94d5305)
+
+![Informasi Fitur](https://github.com/user-attachments/assets/d8dcbfd9-eb64-45ff-9459-a976130bf776)
+
+---
 
 ## Data Preparation
 
@@ -87,37 +93,39 @@ python
 
 1. **One-Hot Encoding**: Mengonversi fitur kategorikal menjadi format numerik.
    - **Proses**:
-     python
-     heart_disease_encoded = pd.get_dummies(heart_disease, drop_first=True)
 
+```python
+heart_disease_encoded = pd.get_dummies(heart_disease, drop_first=True)
+```
 
 2. **Feature-Target Split**: Memisahkan fitur (X) dan target (y) dari dataset.
    - **Proses**:
-     python
-     X = heart_disease_encoded.drop(columns='HeartDisease')
-     y = heart_disease_encoded['HeartDisease']
 
+```python
+X = heart_disease_encoded.drop(columns='HeartDisease')
+y = heart_disease_encoded['HeartDisease']
+```
 
 3. **Train-Test Split**: Membagi dataset menjadi set pelatihan dan set pengujian menggunakan rasio 80:20.
    - **Proses**:
-     python
-     from sklearn.model_selection import train_test_split
-     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+```python
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
 
 4. **Feature Scaling**: Melakukan scaling pada fitur dengan menggunakan StandardScaler.
    - **Proses**:
-     
-python
-     from sklearn.preprocessing import StandardScaler
 
-     scaler = StandardScaler()
-     X_train_scaled = scaler.fit_transform(X_train)
-     X_test_scaled = scaler.transform(X_test)
+```python
+from sklearn.preprocessing import StandardScaler
 
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+```
 
-### Alasan Diperlukan Tahapan Data Preparation
-Tahapan data preparation diperlukan untuk memastikan bahwa dataset siap digunakan untuk proses modeling. Teknik seperti one-hot encoding membantu mengubah data kategorikal menjadi numerik, yang memungkinkan model untuk memproses informasi tersebut dengan baik. Selain itu, pembagian data ke dalam set pelatihan dan pengujian sangat penting untuk menghindari overfitting, sementara scaling fitur diperlukan agar semua fitur memiliki skala yang sama, sehingga meningkatkan kinerja algoritma KNN yang sensitif terhadap jarak.
+---
 
 ## Modeling
 
@@ -128,52 +136,36 @@ Model yang digunakan dalam proyek ini adalah **K-Nearest Neighbors (KNN)**. KNN 
 
 1. **GridSearchCV**: Digunakan untuk mencari nilai K yang optimal melalui cross-validation.
    - **Proses**:
-     
-python
-     from sklearn.model_selection import GridSearchCV
-     from sklearn.neighbors import KNeighborsClassifier
-     import numpy as np
 
-     param_grid = {'n_neighbors': np.arange(1, 21)}
-     knn_cv = GridSearchCV(KNeighborsClassifier(), param_grid, cv=5, scoring='accuracy')
-     knn_cv.fit(X_train_scaled, y_train)
+```python
+from sklearn.model_selection import GridSearchCV
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
 
+param_grid = {'n_neighbors': np.arange(1, 21)}
+knn_cv = GridSearchCV(KNeighborsClassifier(), param_grid, cv=5, scoring='accuracy')
+knn_cv.fit(X_train_scaled, y_train)
+```
 
    - **Hasil Tuning Hyperparameter**:
-     
-python
-     print(f"Nilai K terbaik: {knn_cv.best_params_['n_neighbors']}")
-     print(f"Skor terbaik: {knn_cv.best_score_}")
 
-     - Optimal number of neighbors: 19:
-       
-Nilai K terbaik: 7
-       Skor terbaik: 0.85
+```python
+print(f"Nilai K terbaik: {knn_cv.best_params_['n_neighbors']}")
+print(f"Skor terbaik: {knn_cv.best_score_}")
+```
 
+   - Optimal number of neighbors: 19
+   - Skor terbaik: 0.90
 
 2. **Pelatihan Model KNN**: Setelah menemukan nilai K yang optimal, model KNN dilatih dengan data pelatihan.
    - **Proses**:
-     
-python
-     knn = KNeighborsClassifier(n_neighbors=knn_cv.best_params_['n_neighbors'])
-     knn.fit(X_train_scaled, y_train)
 
+```python
+knn = KNeighborsClassifier(n_neighbors=knn_cv.best_params_['n_neighbors'])
+knn.fit(X_train_scaled, y_train)
+```
 
-### Kelebihan dan Kekurangan Algoritma KNN
-
-- **Kelebihan**:
-  - Sederhana dan mudah dipahami.
-  - Tidak memerlukan asumsi distribusi dari data.
-
-- **Kekurangan**:
-  - Sensitif terhadap skala fitur.
-  - Performa dapat menurun jika jumlah dimensi tinggi (curse of dimensionality).
-
-### Proses Improvement dengan Hyperparameter Tuning
-Proses improvement dilakukan dengan menggunakan GridSearchCV untuk menemukan nilai K yang optimal. Dengan menguji berbagai nilai K dari 1 hingga 20, kita dapat menentukan nilai K yang memberikan performa terbaik berdasarkan cross-validation. Hasil tuning hyperparameter menunjukkan bahwa nilai K = 7 memberikan skor akurasi tertinggi sebesar 0.85, sehingga dipilih sebagai parameter terbaik untuk model KNN.
-
-### Model Terbaik Sebagai Solusi
-Setelah menjalankan GridSearchCV, kita memilih model dengan nilai K terbaik yaitu K = 7. Nilai K yang optimal dipilih karena dapat memberikan keseimbangan antara bias dan varians, yang penting dalam memastikan model tidak overfitting atau underfitting. Dengan model KNN terbaik ini, kita diharapkan dapat memprediksi penyakit jantung dengan akurasi yang lebih tinggi dan dapat diandalkan.
+---
 
 ## Evaluation
 
@@ -186,23 +178,28 @@ Metrik evaluasi yang digunakan dalam proyek ini meliputi:
 - **ROC Curve dan AUC Score**: Untuk menilai performa model klasifikasi pada berbagai threshold.
 
 ### Hasil Proyek Berdasarkan Metrik Evaluasi
-![download (4)](https://github.com/user-attachments/assets/ee0a01df-b563-4981-a107-a73aac410096)
-![download (3)](https://github.com/user-attachments/assets/1e033346-ac13-435d-bdce-f147a4345fc9)
 
+![Confusion Matrix](https://github.com/user-attachments/assets/ee0a01df-b563-4981-a107-a73aac410096)
+
+![ROC Curve](https://github.com/user-attachments/assets/1e033346-ac13-435d-bdce-f147a4345fc9)
 
 **Hasil Numerik Performasi Model Terbaik**:
-python
-from sklearn.metrics import confusion_matrix, accuracy_score, classification_report, roc_curve, auc
 
+```python
+from sklearn.metrics import confusion_matrix, accuracy_score, classification_report, roc_curve, auc
+```
 
 - **Confusion Matrix**:
-  
- [[68  9]
+
+```python
+[[68  9]
  [12 95]]
+```
 
 - **Accuracy**: 88.59%
 - **Classification Report**:
 
+```python
 precision    recall  f1-score   support
 
            0       0.85      0.88      0.87        77
@@ -211,28 +208,19 @@ precision    recall  f1-score   support
         accuracy                           0.89       184
        macro avg       0.88      0.89      0.88       184
     weighted avg       0.89      0.89      0.89       184
+```
 
+---
 
-### Penjelasan Metrik Evaluasi
+## Penutup
 
-![download (5)](https://github.com/user-attachments/assets/d59300ab-75e8-44f2-bb42-deb012824536)
+Hasil evaluasi menunjukkan bahwa model KNN dengan nilai K = 7 memiliki akurasi sebesar 88.59%, yang mengindikasikan performa yang baik dalam memprediksi penyakit jantung. Dengan model KNN ini, kita diharapkan dapat memprediksi penyakit j
 
-- **Confusion Matrix**: Menghitung jumlah True Positive (TP), True Negative (TN), False Positive (FP), dan False Negative (FN), memberikan wawasan tentang klasifikasi model.
-  
-- **Accuracy Score**:
-  - Dihitung dengan rumus:
-    \[
-    \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
-    \]
-  - Di mana:
-    - **TP** = True Positive
-    - **TN** = True Negative
-    - **FP** = False Positive
-    - **FN** = False Negative
+antung lebih cepat dan efisien, membantu proses deteksi dini bagi pasien yang berisiko tinggi.
 
-- **ROC Curve**: Memvisualisasikan trade-off antara True Positive Rate (TPR) dan False Positive Rate (FPR) pada berbagai threshold.
-
-- **AUC (Area Under the Curve)**: Mengukur seberapa baik model dapat memisahkan kelas. Nilai AUC berkisar antara 0 dan 1, dengan nilai mendekati 1 menunjukkan performa yang lebih baik.
+**Potensi Peningkatan**:
+- Penggunaan algoritma machine learning lain seperti Random Forest atau SVM untuk perbandingan performa.
+- Penambahan fitur klinis lain untuk memperkaya model prediksi.
 
 ### Implikasi dan Dampak Hasil Riset
 
